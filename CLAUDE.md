@@ -5,7 +5,7 @@
 ## 결정된 것
 
 - **호스팅:** GitHub Pages를 쓰고, DNS는 Porkbun에 그대로 둡니다. Cloudflare Pages는 루트 도메인을 연결하려면 네임서버를 옮겨야 해서 쓰지 않습니다.
-- **메일:** Zoho Mail을 씁니다(사용자가 2026-11-17에 설정, 처음 계획한 Porkbun 포워딩 대신). Porkbun DNS에 Zoho MX 3개(`mx`/`mx2`/`mx3.zoho.com`), SPF(`include:zohomail.com`), Zoho 인증 TXT가 있습니다. Porkbun 이메일 포워딩은 MX가 충돌하므로 켜지 않습니다.
+- **메일:** Zoho Mail을 씁니다(사용자가 2026-11-17에 설정, 처음 계획한 Porkbun 포워딩 대신). Porkbun DNS에 Zoho MX 3개(`mx`/`mx2`/`mx3.zoho.com`), SPF(`include:zohomail.com`), Zoho 인증 TXT, DKIM(selector `zoho`), DMARC(`p=none`, 집계 보고서는 `contact@`로)가 있습니다. Porkbun 이메일 포워딩은 MX가 충돌하므로 켜지 않습니다.
 - **언어:** 한국어가 `/`, 영어가 `/en/`입니다. 브라우저 언어에 따른 자동 이동은 넣지 않고, hreflang과 전환 링크만 둡니다.
 - **범위:** 담백한 단일 소개 페이지입니다. 로고, 이름, 소개 한 줄, 연락처만 둡니다(사용자 요청). 장난스러운 인터랙션이나 애니메이션은 넣지 않습니다. 처음에 만든 "글자를 누르면 튀어 오르고 색이 바뀌는 워드마크"는 사용자가 2026-11-17에 뺐습니다.
 - **이름 표기:** 한국어 페이지는 "호작게임즈"(붙여 씀), 영어 페이지는 "Hojak Games"입니다. 한국어 `description`/`og:description`은 "호작게임즈(Hojak Games)는…"으로 두 표기를 같이 씁니다. 404 페이지는 한/영 겸용이라 "Hojak Games"입니다.
@@ -39,9 +39,11 @@
 - [x] Pages 켜기, Porkbun DNS 연결(A 4개, `www` CNAME → `hojak-games.github.io`)
 - [x] 배포 확인(2026-11-17, http 기준): `/`, `/en/`, 이미지 200, `www` → 루트 301, 없는 주소 404 페이지, `/README.html`·`/CLAUDE.html`·`/README.md` 404(`_config.yml` exclude 동작)
 - [x] HTTPS 인증서 발급(Let's Encrypt, `hojakgames.com`과 `www` 포함). 사용자가 Enforce HTTPS를 켰습니다(2026-11-17).
-- [ ] 직후 확인 때 `http://hojakgames.com`이 아직 https로 넘어가지 않고 200을 돌려줬습니다. 반영이 늦은 것인지 다시 확인해야 합니다.
+- [x] `http://` → `https://` 301 리디렉션 확인
 - [ ] (권장) organization Settings → Pages에서 도메인 소유 확인. `_github-pages-challenge-hojak-games` TXT가 아직 없습니다.
-- [ ] 메일: Zoho에 `contact@` 계정이나 별칭이 있는지, 다른 주소에서 보낸 메일이 도착하는지 확인. DKIM(`zmail._domainkey`에서는 못 찾음)과 DMARC는 아직 없습니다. 보내는 메일이 스팸으로 가지 않으려면 추가를 권장합니다.
+- [x] 메일 DNS: Zoho MX, SPF, DKIM, DMARC 모두 DNS에 올라간 것을 확인(2026-11-17)
+- [ ] 메일 실제 테스트: 다른 주소에서 `contact@`로 보내 받히는지, `contact@`에서 Gmail로 보낸 뒤 원본 보기에서 SPF/DKIM/DMARC가 모두 PASS인지
+- [ ] DMARC는 몇 주 지켜보고 문제가 없으면 `p=quarantine`으로 올리는 걸 고려합니다.
 - [ ] 카톡 등에서 링크 미리보기 이미지가 뜨는지 확인
 
 ## 작업 메모
