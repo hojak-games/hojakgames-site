@@ -44,7 +44,7 @@ python -m http.server 8000
 2. 이 폴더에서 다음을 실행합니다. 첫 커밋은 이미 되어 있습니다.
 
    ```powershell
-   git remote add origin https://github.com/<organization이름>/<저장소이름>.git
+   git remote add origin https://github.com/hojak-games/hojakgames-site.git
    git push -u origin main
    ```
 
@@ -65,7 +65,7 @@ Porkbun → Domain Management → hojakgames.com → **DNS**에서 작업합니�
    | A | (비움) | `185.199.109.153` |
    | A | (비움) | `185.199.110.153` |
    | A | (비움) | `185.199.111.153` |
-   | CNAME | `www` | `<organization이름>.github.io` |
+   | CNAME | `www` | `hojak-games.github.io` |
 
    IPv6도 받으려면 AAAA 레코드 네 개를 더 추가합니다: `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
 
@@ -73,14 +73,14 @@ Porkbun → Domain Management → hojakgames.com → **DNS**에서 작업합니�
 
 참고: [Porkbun – GitHub Pages 연결](https://kb.porkbun.com/article/64-how-to-connect-your-domain-to-github-pages), [GitHub – 커스텀 도메인 관리](https://docs.github.com/ko/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site)
 
-### 3. contact@hojakgames.com 메일 받기
+### 3. contact@hojakgames.com 메일 (Zoho Mail)
 
-Porkbun → hojakgames.com → **Email** → Email Forwarding에서 `contact`를 개인 메일 주소로 전달하도록 추가합니다. 무료입니다.
+메일은 Zoho Mail로 받고 보냅니다. Porkbun DNS에 Zoho가 안내한 MX 3개, SPF TXT, 인증 TXT가 들어 있습니다.
+`contact@`는 Zoho에서 계정이나 별칭(alias)으로 만들어 두어야 받을 수 있습니다.
 
-- 테스트는 **전달받는 주소가 아닌 다른 메일**로 보내야 합니다. 같은 주소로 보내면 Gmail이 중복 메일로 보고 숨길 수 있습니다.
-- 포워딩은 받기만 합니다. 답장은 개인 주소로 나갑니다. `contact@hojakgames.com` 이름으로 메일을 보내려면 Porkbun 호스팅 이메일 같은 유료 메일이 필요합니다.
-
-참고: [Porkbun – 이메일 포워딩 설정](https://kb.porkbun.com/article/10-how-to-set-up-email-forwarding)
+- Porkbun의 Email Forwarding은 켜지 마세요. MX 레코드가 Zoho와 충돌합니다.
+- 테스트는 Zoho 계정이 아닌 다른 메일 주소에서 보내 봅니다.
+- 보내는 메일이 스팸함에 덜 가도록, Zoho 관리 콘솔의 안내대로 DKIM TXT 레코드와 DMARC TXT 레코드(`_dmarc`)도 추가하는 걸 권장합니다.
 
 ### (권장) 도메인 소유 확인
 

@@ -5,7 +5,7 @@
 ## 결정된 것
 
 - **호스팅:** GitHub Pages를 쓰고, DNS는 Porkbun에 그대로 둡니다. Cloudflare Pages는 루트 도메인을 연결하려면 네임서버를 옮겨야 해서 쓰지 않습니다.
-- **메일:** `contact@hojakgames.com`은 Porkbun의 무료 이메일 포워딩으로 받습니다. 받기만 됩니다.
+- **메일:** Zoho Mail을 씁니다(사용자가 2026-11-17에 설정, 처음 계획한 Porkbun 포워딩 대신). Porkbun DNS에 Zoho MX 3개(`mx`/`mx2`/`mx3.zoho.com`), SPF(`include:zohomail.com`), Zoho 인증 TXT가 있습니다. Porkbun 이메일 포워딩은 MX가 충돌하므로 켜지 않습니다.
 - **언어:** 한국어가 `/`, 영어가 `/en/`입니다. 브라우저 언어에 따른 자동 이동은 넣지 않고, hreflang과 전환 링크만 둡니다.
 - **범위:** 담백한 단일 소개 페이지입니다. 로고, 이름, 소개 한 줄, 연락처만 둡니다(사용자 요청). 장난스러운 인터랙션이나 애니메이션은 넣지 않습니다. 처음에 만든 "글자를 누르면 튀어 오르고 색이 바뀌는 워드마크"는 사용자가 2026-11-17에 뺐습니다.
 - **이름 표기:** 한국어 페이지는 "호작게임즈"(붙여 씀), 영어 페이지는 "Hojak Games"입니다. 한국어 `description`/`og:description`은 "호작게임즈(Hojak Games)는…"으로 두 표기를 같이 씁니다. 404 페이지는 한/영 겸용이라 "Hojak Games"입니다.
@@ -35,10 +35,14 @@
 - [x] 소개 문구, 한글 표기 확정
 - [x] 로고, 테마색, 글꼴 반영. 글자 놀이 제거
 - [x] 로컬 히스토리를 영어 커밋 하나로 새로 시작
-- [ ] GitHub 저장소: 사용자가 organization 아래에 새로 만듭니다. 무료 플랜이라 Pages를 쓰려면 public이어야 합니다. 저장소 주소를 알려 주면 remote 등록은 대신 할 수 있고, push는 로그인 창이 뜰 수 있어 사용자가 직접 합니다(gh CLI 없음).
-- [ ] Pages 설정: Source는 `main` 브랜치의 `/ (root)`, Custom domain은 `hojakgames.com`입니다.
-- [ ] Porkbun DNS 연결, `contact@` 메일 포워딩: 사용자가 직접 합니다. 순서는 README에 있습니다.
-- [ ] 배포 뒤 확인: https 접속, `www` 리디렉션, 없는 주소의 404, 메일 수신, `/README.html`과 `/CLAUDE.html`이 404인지(`_config.yml`의 exclude는 로컬에 Jekyll이 없어 아직 확인 못 함), 카톡 등에서 링크 미리보기 이미지가 뜨는지
+- [x] GitHub 저장소 `hojak-games/hojakgames-site`(organization, public) 생성과 첫 push(2026-11-17). 이후 push는 로그인 창이 뜰 수 있어 사용자가 직접 합니다(gh CLI 없음).
+- [x] Pages 켜기, Porkbun DNS 연결(A 4개, `www` CNAME → `hojak-games.github.io`)
+- [x] 배포 확인(2026-11-17, http 기준): `/`, `/en/`, 이미지 200, `www` → 루트 301, 없는 주소 404 페이지, `/README.html`·`/CLAUDE.html`·`/README.md` 404(`_config.yml` exclude 동작)
+- [x] HTTPS 인증서 발급(Let's Encrypt, `hojakgames.com`과 `www` 포함). 사용자가 Enforce HTTPS를 켰습니다(2026-11-17).
+- [ ] 직후 확인 때 `http://hojakgames.com`이 아직 https로 넘어가지 않고 200을 돌려줬습니다. 반영이 늦은 것인지 다시 확인해야 합니다.
+- [ ] (권장) organization Settings → Pages에서 도메인 소유 확인. `_github-pages-challenge-hojak-games` TXT가 아직 없습니다.
+- [ ] 메일: Zoho에 `contact@` 계정이나 별칭이 있는지, 다른 주소에서 보낸 메일이 도착하는지 확인. DKIM(`zmail._domainkey`에서는 못 찾음)과 DMARC는 아직 없습니다. 보내는 메일이 스팸으로 가지 않으려면 추가를 권장합니다.
+- [ ] 카톡 등에서 링크 미리보기 이미지가 뜨는지 확인
 
 ## 작업 메모
 
