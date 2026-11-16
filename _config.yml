@@ -1,0 +1,4 @@
+# Keep GitHub Pages (Jekyll) from publishing the docs as site pages.
+exclude:
+  - README.md
+  - CLAUDE.md
